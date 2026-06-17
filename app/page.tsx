@@ -105,6 +105,19 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── CTA после болей ──────────────────────────────────── */}
+      <div className="bg-paper pb-16 md:pb-24">
+        <div className="max-w-[1400px] mx-auto px-9 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <p className="font-body text-base text-ink/50 max-w-xs">
+            Узнайте, как выстроить рекламу системно — без слива бюджета
+          </p>
+          <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
+            className="btn-bracket text-ink shrink-0">
+            Написать в Telegram
+          </a>
+        </div>
+      </div>
+
       {/* ── РЕЗУЛЬТАТЫ ───────────────────────────────────────── */}
       <section className="bg-ink text-paper py-24 md:py-36">
         <div className="max-w-[1400px] mx-auto px-9">
@@ -184,6 +197,22 @@ export default async function HomePage() {
               {cases.map((c, i) => (
                 <CaseCard key={c.id} item={c} index={i} />
               ))}
+            </div>
+
+            {/* CTA после кейсов */}
+            <div className="mt-16 pt-16 border-t border-paper/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+              <p className="font-heading text-2xl md:text-3xl uppercase text-paper leading-tight max-w-sm">
+                Хотите такой же результат?
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
+                  className="btn-bracket-inv">
+                  Записаться
+                </a>
+                <Link href="#products" className="btn-bracket-accent">
+                  Выбрать продукт
+                </Link>
+              </div>
             </div>
           </div>
         </section>

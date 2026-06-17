@@ -1,10 +1,11 @@
 import Link from 'next/link'
+import { IconTelegram, IconVK, IconYouTube } from './SocialIcons'
 
 export function Footer({ telegramUrl }: { telegramUrl: string }) {
   return (
     <footer className="bg-ink text-paper/50">
       <div className="max-w-[1400px] mx-auto px-9 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
-        {/* Brand */}
+        {/* Brand + соцсети */}
         <div>
           <p className="font-heading text-4xl font-bold uppercase text-paper tracking-tight leading-none">
             Марина Барынина
@@ -12,6 +13,20 @@ export function Footer({ telegramUrl }: { telegramUrl: string }) {
           <p className="font-body text-xs tracking-[0.2em] uppercase mt-3 text-paper/40">
             Эксперт по рекламе WB
           </p>
+          <div className="flex items-center gap-5 mt-6">
+            <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
+              className="text-paper/40 hover:text-paper transition-colors">
+              <IconTelegram size={20} />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer"
+              className="text-paper/40 hover:text-paper transition-colors">
+              <IconVK size={20} />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer"
+              className="text-paper/40 hover:text-paper transition-colors">
+              <IconYouTube size={20} />
+            </a>
+          </div>
         </div>
 
         {/* Nav */}
@@ -21,14 +36,11 @@ export function Footer({ telegramUrl }: { telegramUrl: string }) {
             { href: '/course', label: 'Курс' },
             { href: '/mini', label: 'База рекламы' },
             { href: '/about', label: 'Обо мне' },
-            { href: '/mentoring', label: 'Курирование' },
+            { href: '/mentoring', label: 'Управление' },
             { href: '/privacy', label: 'Политика конфиденциальности' },
           ].map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="font-body text-sm text-paper/50 hover:text-paper transition-colors"
-            >
+            <Link key={l.href} href={l.href}
+              className="font-body text-sm text-paper/50 hover:text-paper transition-colors">
               {l.label}
             </Link>
           ))}
@@ -37,12 +49,8 @@ export function Footer({ telegramUrl }: { telegramUrl: string }) {
         {/* CTA */}
         <div className="flex flex-col gap-4">
           <p className="section-tag text-paper/30 mb-2">Контакт</p>
-          <a
-            href={telegramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-bracket-inv self-start"
-          >
+          <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
+            className="btn-bracket-inv self-start">
             Telegram
           </a>
         </div>
