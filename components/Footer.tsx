@@ -3,11 +3,11 @@ import Link from 'next/link'
 export function Footer({ telegramUrl }: { telegramUrl: string }) {
   return (
     <footer className="bg-ink text-paper/50">
-      <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="max-w-[1400px] mx-auto px-9 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Brand */}
         <div>
           <p className="font-heading text-4xl font-bold uppercase text-paper tracking-tight leading-none">
-            Марина
+            Марина Барынина
           </p>
           <p className="font-body text-xs tracking-[0.2em] uppercase mt-3 text-paper/40">
             Эксперт по рекламе WB
@@ -48,8 +48,8 @@ export function Footer({ telegramUrl }: { telegramUrl: string }) {
         </div>
       </div>
 
-      <div className="border-t border-paper/10 px-6 py-4 max-w-[1400px] mx-auto">
-        <p className="font-body text-xs text-paper/20">© {new Date().getFullYear()} Марина. Все права защищены.</p>
+      <div className="border-t border-paper/10 px-9 py-4 max-w-[1400px] mx-auto">
+        <p className="font-body text-xs text-paper/20">© 2026 ИП Барынина МВ. Все права защищены.</p>
       </div>
     </footer>
   )

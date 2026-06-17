@@ -43,12 +43,9 @@ export default async function HomePage() {
         )}
 
         {/* Контент */}
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 pt-28 pb-20 flex flex-col justify-between min-h-screen">
-          {/* Большое имя */}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-9 pt-28 pb-20 flex flex-col justify-between min-h-screen">
+          {/* Заголовок без имени */}
           <div>
-            <h1 className="font-heading font-bold text-[clamp(5rem,18vw,18rem)] uppercase leading-none tracking-tightest text-paper">
-              МАРИНА
-            </h1>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mt-4">
               <p className="font-heading text-[clamp(1.2rem,3vw,2.8rem)] uppercase text-paper/50 leading-none max-w-xl">
                 {home.hero_title}
@@ -89,7 +86,7 @@ export default async function HomePage() {
 
       {/* ── ФИЛОСОФИЯ / БОЛИ ─────────────────────────────────── */}
       <section className="bg-paper py-24 md:py-36">
-        <div className="max-w-[1400px] mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-9">
           <div className="grid md:grid-cols-2 gap-16 items-start">
             {/* Заголовок-манифест */}
             <div>
@@ -115,7 +112,7 @@ export default async function HomePage() {
 
       {/* ── РЕЗУЛЬТАТЫ ───────────────────────────────────────── */}
       <section className="bg-ink text-paper py-24 md:py-36">
-        <div className="max-w-[1400px] mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-9">
           <div className="grid md:grid-cols-[1fr_2fr] gap-16 items-start">
             <div>
               <p className="section-tag text-paper/40 mb-6">После работы</p>
@@ -139,7 +136,7 @@ export default async function HomePage() {
 
       {/* ── ПРОДУКТЫ ─────────────────────────────────────────── */}
       <section id="products" className="bg-paper py-24 md:py-36">
-        <div className="max-w-[1400px] mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-9">
           <p className="section-tag mb-4">Продукты</p>
           <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] uppercase text-ink leading-none mb-16">
             Выберите свой путь
@@ -176,7 +173,7 @@ export default async function HomePage() {
       {/* ── КЕЙСЫ ────────────────────────────────────────────── */}
       {cases.length > 0 && (
         <section className="bg-ink text-paper py-24 md:py-36">
-          <div className="max-w-[1400px] mx-auto px-6">
+          <div className="max-w-[1400px] mx-auto px-9">
             <div className="flex items-end justify-between mb-16 gap-8">
               <div>
                 <p className="section-tag text-paper/40 mb-4">Кейсы</p>
@@ -200,7 +197,7 @@ export default async function HomePage() {
 
       {/* ── ОБО МНЕ ──────────────────────────────────────────── */}
       <section className="bg-paper py-24 md:py-36">
-        <div className="max-w-[1400px] mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-9">
           <div className="grid md:grid-cols-[1fr_1fr] gap-16 items-center">
             <div>
               <p className="section-tag mb-6">Обо мне</p>
@@ -235,7 +232,7 @@ export default async function HomePage() {
 
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="bg-ink text-paper py-24 md:py-36">
-        <div className="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
+        <div className="max-w-[1400px] mx-auto px-9 flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
           <h2 className="font-heading text-[clamp(3rem,8vw,8rem)] uppercase text-paper leading-none max-w-2xl">
             Готовы начать?
           </h2>

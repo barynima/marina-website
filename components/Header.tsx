@@ -14,8 +14,8 @@ export function Header({ telegramUrl }: { telegramUrl: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 mix-blend-normal">
-      <div className="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-ink/8">
+      <div className="max-w-[1400px] mx-auto px-9 h-14 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="font-heading text-xl font-bold tracking-widest uppercase text-ink hover:text-accent transition-colors">
           Марина
@@ -56,7 +56,7 @@ export function Header({ telegramUrl }: { telegramUrl: string }) {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-paper border-t border-ink/10 px-6 py-8 flex flex-col gap-6">
+        <div className="md:hidden bg-paper border-t border-ink/10 px-9 py-8 flex flex-col gap-6">
           {navLinks.map((l) => (
             <Link
               key={l.href}
