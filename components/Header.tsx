@@ -17,8 +17,24 @@ export function Header({ telegramUrl }: { telegramUrl: string }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-ink/8">
       <div className="max-w-[1400px] mx-auto px-9 h-14 flex items-center justify-between">
-        {/* Social icons */}
-        <div className="flex items-center gap-4">
+        {/* Главная — левый край */}
+        <Link href="/"
+          className="font-body text-xs tracking-[0.15em] uppercase text-ink/60 hover:text-ink transition-colors">
+          Главная
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((l) => (
+            <Link key={l.href} href={l.href}
+              className="font-body text-xs tracking-[0.15em] uppercase text-ink/60 hover:text-ink transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Social icons — правый край */}
+        <div className="hidden md:flex items-center gap-4">
           <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
             className="text-ink/50 hover:text-accent transition-colors">
             <IconTelegram />
@@ -32,20 +48,6 @@ export function Header({ telegramUrl }: { telegramUrl: string }) {
             <IconYouTube />
           </a>
         </div>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((l) => (
-            <Link key={l.href} href={l.href}
-              className="font-body text-xs tracking-[0.15em] uppercase text-ink/60 hover:text-ink transition-colors">
-              {l.label}
-            </Link>
-          ))}
-          <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
-            className="btn-bracket text-ink">
-            Telegram
-          </a>
-        </nav>
 
         {/* Burger */}
         <button className="md:hidden flex flex-col gap-1.5 p-1" onClick={() => setOpen(!open)} aria-label="Меню">
