@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { getSiteSettings, getReviews, getFaq } from '@/lib/directus'
 import { WaitlistForm } from '@/components/WaitlistForm'
 import { ReviewCard } from '@/components/ReviewCard'
@@ -10,12 +11,28 @@ export const metadata: Metadata = {
 }
 
 const modules = [
-  'Модуль 1. Как устроены алгоритмы WB Ads — логика, которую нужно понять',
-  'Модуль 2. Аудит кабинета — находим дыры и точки роста',
-  'Модуль 3. Структура кампаний и типы рекламы',
-  'Модуль 4. Ставки, ДРР и управление бюджетом',
-  'Модуль 5. Минус-слова, таргетинг и аналитика',
-  'Модуль 6. Система контроля и масштабирование',
+  { title: 'Алгоритмы WB Ads', desc: 'Логика, которую нужно понять раз и навсегда' },
+  { title: 'Аудит кабинета', desc: 'Находим дыры и точки роста' },
+  { title: 'Структура кампаний', desc: 'Типы рекламы и как их применять' },
+  { title: 'Ставки, ДРР и бюджет', desc: 'Управление деньгами без слива' },
+  { title: 'Минус-слова и таргетинг', desc: 'Аналитика, которая работает' },
+  { title: 'Система и масштаб', desc: 'Контроль и предсказуемый рост' },
+]
+
+const forWhom = [
+  'Тратите бюджет на рекламу, но не понимаете, почему не окупается',
+  'Работаете с менеджером, но не можете оценить его работу',
+  'Хотите масштабироваться, но не знаете с чего начать',
+  'Хаос в кабинете — непонятно, что работает, а что нет',
+]
+
+const results = [
+  'Поймёте логику алгоритмов WB Ads',
+  'Выстроите структуру кампаний с нуля',
+  'Научитесь управлять ставками и ДРР',
+  'Сможете оценивать работу подрядчика',
+  'Внедрите систему аналитики и контроля',
+  'Получите предсказуемый результат',
 ]
 
 export default async function CoursePage() {
@@ -26,127 +43,198 @@ export default async function CoursePage() {
   ])
 
   const isOpen = settings.course_mode === 'open'
+  const courseReviews = reviews.filter(r => r.product !== 'Курирование отдела')
 
   return (
-    <div className="min-h-screen">
-      <section className="bg-gradient-to-br from-purple-700 to-indigo-600 py-24">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-purple-200 text-sm font-semibold uppercase tracking-widest mb-4">Флагманский курс</p>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            Реклама на WB: от хаоса к системе
+    <div className="min-h-screen bg-paper">
+
+      {/* ── Hero ── */}
+      <section className="bg-ink text-paper pt-32 pb-20">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag text-paper/40 mb-6">Флагманский курс</p>
+          <h1 className="font-heading text-[clamp(3rem,9vw,8rem)] uppercase text-paper leading-none mb-10">
+            Реклама на WB:<br />от хаоса<br />к системе
           </h1>
-          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+          <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12">
             6-недельный курс для тех, кто хочет управлять рекламой самостоятельно и получать измеримый результат
           </p>
+
           {isOpen ? (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <div className="bg-white/10 rounded-xl px-6 py-3 text-white">
-                <p className="text-sm text-purple-200">Старт</p>
-                <p className="font-bold">{new Date(settings.course_start_date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            <div className="flex flex-col sm:flex-row items-start gap-8">
+              <div className="border-t border-paper/20 pt-5 pr-12">
+                <p className="section-tag text-paper/30 mb-2">Старт</p>
+                <p className="font-heading text-2xl uppercase text-paper">
+                  {new Date(settings.course_start_date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </p>
               </div>
-              <div className="bg-white/10 rounded-xl px-6 py-3 text-white">
-                <p className="text-sm text-purple-200">Стоимость</p>
-                <p className="font-bold">{settings.course_price.toLocaleString('ru-RU')} ₽</p>
+              <div className="border-t border-paper/20 pt-5 pr-12">
+                <p className="section-tag text-paper/30 mb-2">Стоимость</p>
+                <p className="font-heading text-2xl uppercase text-paper">
+                  {settings.course_price.toLocaleString('ru-RU')} ₽
+                </p>
+              </div>
+              <div className="border-t border-accent pt-5 mt-auto">
+                <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer"
+                  className="btn-bracket-inv">
+                  Записаться на курс
+                </a>
               </div>
             </div>
           ) : (
-            <div className="bg-white/10 rounded-xl px-6 py-4 text-white inline-block">
-              <p className="font-semibold">Сейчас идёт набор в предзапись</p>
-              <p className="text-purple-200 text-sm mt-1">Оставьте заявку — сообщим о старте первыми</p>
+            <div className="flex flex-col sm:flex-row items-start gap-8">
+              <div className="border-t border-paper/20 pt-5">
+                <p className="font-heading text-xl uppercase text-paper/60">Сейчас — предзапись</p>
+                <p className="font-body text-sm text-paper/40 mt-2">Оставьте заявку — сообщим о старте первыми</p>
+              </div>
             </div>
           )}
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4">
-        <section className="py-16">
-          <h2 className="text-3xl font-bold mb-8">Для кого этот курс</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {['Тратите бюджет на рекламу, но не понимаете, почему не окупается','Работаете с менеджером, но не можете оценить его работу','Хотите масштабироваться, но не знаете с чего начать','Хаос в кабинете — непонятно, что работает, а что нет'].map((t, i) => (
-              <div key={i} className="flex gap-3 bg-gray-50 rounded-xl p-4">
-                <span className="text-red-400">✗</span>
-                <p className="text-gray-700">{t}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-8">Результат после курса</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {['Поймёте логику алгоритмов WB Ads','Выстроите структуру кампаний с нуля','Научитесь управлять ставками и ДРР','Сможете самостоятельно оценивать работу подрядчика','Внедрите систему аналитики и контроля','Получите предсказуемый результат'].map((r, i) => (
-              <div key={i} className="flex gap-3 bg-purple-50 rounded-xl p-4">
-                <span className="text-purple-500">✓</span>
-                <p className="text-purple-900 font-medium">{r}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-8">Программа курса</h2>
-          <div className="flex flex-col gap-3">
-            {modules.map((m, i) => (
-              <div key={i} className="flex gap-4 bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
-                <span className="text-purple-600 font-bold text-lg w-8 shrink-0">{i + 1}</span>
-                <p className="text-gray-800">{m}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-6">Формат и длительность</h2>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {[{icon:'🎥',title:'Видеоуроки',desc:'Доступ навсегда'},{icon:'💬',title:'Закрытый чат',desc:'Обратная связь'},{icon:'📋',title:'6 недель',desc:'Основная программа'}].map((f, i) => (
-              <div key={i} className="text-center bg-gray-50 rounded-2xl p-6">
-                <div className="text-4xl mb-3">{f.icon}</div>
-                <p className="font-bold text-lg">{f.title}</p>
-                <p className="text-gray-500 text-sm mt-1">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {reviews.filter(r => r.product !== 'Курирование отдела').length > 0 && (
-          <section className="py-16 border-t">
-            <h2 className="text-3xl font-bold mb-8">Отзывы учеников</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {reviews.filter(r => r.product !== 'Курирование отдела').map((r) => (
-                <ReviewCard key={r.id} review={r} />
+      {/* ── Для кого ── */}
+      <section className="py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            <div>
+              <p className="section-tag mb-6">Аудитория</p>
+              <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none">
+                Для кого этот курс
+              </h2>
+            </div>
+            <div className="flex flex-col pt-2 md:pt-4">
+              {forWhom.map((t, i) => (
+                <div key={i} className="flex items-baseline gap-4 border-b border-ink/10 py-5">
+                  <span className="font-body text-xs text-ink/25 tracking-widest shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                  <p className="font-body text-base text-ink/70">{t}</p>
+                </div>
               ))}
             </div>
-          </section>
-        )}
+          </div>
+        </div>
+      </section>
 
-        {faq.length > 0 && (
-          <section className="py-16 border-t">
-            <h2 className="text-3xl font-bold mb-8">Частые вопросы</h2>
+      {/* ── Результат ── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag text-paper/40 mb-6">После курса</p>
+          <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-paper leading-none mb-16">
+            Что изменится
+          </h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-px bg-paper/10 border border-paper/10">
+            {results.map((r, i) => (
+              <div key={i} className="bg-ink p-8">
+                <span className="font-body text-xs text-accent tracking-widest block mb-3">{String(i + 1).padStart(2, '0')}</span>
+                <p className="font-body text-base text-paper/70 leading-relaxed">{r}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Программа ── */}
+      <section className="py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag mb-6">Программа</p>
+          <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none mb-16">
+            6 модулей
+          </h2>
+          <div className="grid md:grid-cols-2 gap-0 border-t border-ink/15">
+            {modules.map((m, i) => (
+              <div key={i} className="border-b border-r-0 md:odd:border-r border-ink/15 py-8 md:pr-12">
+                <span className="font-body text-xs text-ink/25 tracking-widest block mb-3">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="font-heading text-2xl uppercase text-ink leading-tight mb-2">{m.title}</h3>
+                <p className="font-body text-sm text-ink/50">{m.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Формат ── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag text-paper/40 mb-6">Формат</p>
+          <div className="grid md:grid-cols-3 gap-0 border-t border-paper/10">
+            {[
+              { title: 'Видеоуроки', desc: 'Доступ навсегда' },
+              { title: 'Закрытый чат', desc: 'Обратная связь от куратора' },
+              { title: '6 недель', desc: 'Основная программа' },
+            ].map((f, i) => (
+              <div key={i} className="border-b md:border-b-0 md:border-r border-paper/10 last:border-0 py-8 md:pr-12">
+                <h3 className="font-heading text-3xl uppercase text-paper leading-tight mb-2">{f.title}</h3>
+                <p className="font-body text-sm text-paper/40">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Отзывы ── */}
+      {courseReviews.length > 0 && (
+        <section className="py-24 md:py-36">
+          <div className="max-w-[1400px] mx-auto px-9">
+            <p className="section-tag mb-6">Отзывы</p>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none mb-16">
+              Говорят ученики
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {courseReviews.map((r, i) => (
+                <ReviewCard key={r.id} review={r} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── FAQ ── */}
+      {faq.length > 0 && (
+        <section className="bg-paper border-t border-ink/10 py-24 md:py-36">
+          <div className="max-w-[1400px] mx-auto px-9">
+            <p className="section-tag mb-6">FAQ</p>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none mb-16">
+              Частые вопросы
+            </h2>
             <FaqAccordion items={faq} />
-          </section>
-        )}
+          </div>
+        </section>
+      )}
 
-        <section className="py-16 border-t">
+      {/* ── CTA запись ── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9 flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
           {isOpen ? (
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mb-4">Записаться на курс</h2>
-              <p className="text-gray-500 mb-8">
-                Старт {new Date(settings.course_start_date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })} · {settings.course_price.toLocaleString('ru-RU')} ₽
-              </p>
+            <>
+              <div>
+                <h2 className="font-heading text-[clamp(2.5rem,7vw,7rem)] uppercase text-paper leading-none">
+                  Записаться<br />на курс
+                </h2>
+                <p className="font-body text-base text-paper/50 mt-6">
+                  Старт {new Date(settings.course_start_date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}
+                  &nbsp;·&nbsp;{settings.course_price.toLocaleString('ru-RU')} ₽
+                </p>
+              </div>
               <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer"
-                className="bg-purple-600 text-white font-semibold px-10 py-4 rounded-xl hover:bg-purple-700 transition text-lg">
+                className="btn-bracket-inv shrink-0">
                 Записаться
               </a>
-            </div>
+            </>
           ) : (
-            <div>
-              <h2 className="text-3xl font-bold mb-3">Записаться в предзапись</h2>
-              <p className="text-gray-500 mb-8">Оставьте контакты — напишем, когда откроется набор</p>
-              <div className="max-w-md"><WaitlistForm /></div>
-            </div>
+            <>
+              <div>
+                <h2 className="font-heading text-[clamp(2.5rem,7vw,7rem)] uppercase text-paper leading-none">
+                  Предзапись
+                </h2>
+                <p className="font-body text-base text-paper/50 mt-6">
+                  Оставьте контакты — напишем, когда откроется набор
+                </p>
+              </div>
+              <div className="w-full max-w-md">
+                <WaitlistForm />
+              </div>
+            </>
           )}
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   )
 }

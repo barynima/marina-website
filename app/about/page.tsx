@@ -3,73 +3,111 @@ import Link from 'next/link'
 import { getAbout, getSiteSettings } from '@/lib/directus'
 
 export const metadata: Metadata = {
-  title: 'Обо мне — Марина, эксперт по рекламе WB',
-  description: 'Эксперт по внутренней рекламе Wildberries с 2021 года. 200+ учеников, лучший наставник клуба Терра.',
+  title: 'Обо мне — Марина Барынина, эксперт по рекламе WB',
+  description: 'Эксперт по внутренней рекламе Wildberries. 200+ учеников, 10 лет в e-com.',
 }
 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()])
 
   return (
-    <div className="min-h-screen">
-      <section className="bg-gradient-to-br from-purple-700 to-indigo-600 py-24">
-        <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Марина</h1>
-          <p className="text-xl text-purple-100">{about.headline}</p>
+    <div className="min-h-screen bg-paper">
+
+      {/* ── Hero ── */}
+      <section className="bg-ink text-paper pt-32 pb-20">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag text-paper/40 mb-6">Обо мне</p>
+          <h1 className="font-heading text-[clamp(3.5rem,10vw,9rem)] uppercase text-paper leading-none mb-10">
+            Марина<br />Барынина
+          </h1>
+          <p className="font-body text-lg md:text-xl text-paper/60 max-w-2xl leading-relaxed">
+            {about.headline}
+          </p>
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4">
-        <section className="py-16">
-          <h2 className="text-3xl font-bold mb-8">Моя история</h2>
-          <div className="flex flex-col gap-5">
-            {about.bio.map((p, i) => (
-              <p key={i} className="text-gray-700 text-lg leading-relaxed">{p.paragraph}</p>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-8">Подход к работе</h2>
-          <div className="flex flex-col gap-4">
-            {about.approach.map((a, i) => (
-              <div key={i} className="flex gap-4 bg-purple-50 rounded-xl p-5">
-                <span className="text-purple-500 font-bold text-lg shrink-0">{i + 1}</span>
-                <p className="text-purple-900 font-medium">{a.item}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-8">Регалии</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {about.credentials.map((c, i) => (
-              <div key={i} className="flex gap-3 bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
-                <span className="text-purple-500 text-xl">★</span>
-                <p className="text-gray-800 font-medium">{c.item}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <div className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-3xl p-10 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Работаем вместе?</h2>
-            <p className="text-purple-100 mb-8">Подпишитесь на канал или выберите формат работы</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href={settings.telegram_url} target="_blank" rel="noopener noreferrer"
-                className="bg-white text-purple-700 font-semibold px-8 py-3 rounded-xl hover:bg-purple-50 transition">
-                Telegram-канал
-              </a>
-              <Link href="/#products"
-                className="border border-white text-white font-semibold px-8 py-3 rounded-xl hover:bg-white/10 transition">
-                Выбрать продукт
-              </Link>
+      {/* ── Bio ── */}
+      <section className="py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <div className="grid md:grid-cols-[1fr_2fr] gap-16 items-start">
+            <div>
+              <p className="section-tag mb-6">История</p>
+              <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] uppercase text-ink leading-none">
+                Как я здесь оказалась
+              </h2>
+            </div>
+            <div className="flex flex-col gap-6 pt-2 md:pt-4">
+              {about.bio.map((p, i) => (
+                <p key={i} className="font-body text-base md:text-lg text-ink/65 leading-relaxed border-b border-ink/8 pb-6 last:border-0 last:pb-0">
+                  {p.paragraph}
+                </p>
+              ))}
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* ── Approach ── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag text-paper/40 mb-6">Метод</p>
+          <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] uppercase text-paper leading-none mb-16">
+            Подход к работе
+          </h2>
+          <div className="grid md:grid-cols-2 gap-0 border-t border-paper/10">
+            {about.approach.map((a, i) => (
+              <div key={i} className="border-b border-r-0 md:odd:border-r border-paper/10 py-8 px-0 md:pr-12">
+                <span className="font-body text-xs text-accent tracking-widest block mb-4">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <p className="font-body text-base text-paper/70 leading-relaxed">{a.item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Credentials ── */}
+      <section className="py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <div className="grid md:grid-cols-[1fr_2fr] gap-16 items-start">
+            <div>
+              <p className="section-tag mb-6">Регалии</p>
+              <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] uppercase text-ink leading-none">
+                Факты
+              </h2>
+            </div>
+            <div className="flex flex-col">
+              {about.credentials.map((c, i) => (
+                <div key={i} className="flex items-baseline gap-6 border-b border-ink/10 py-5">
+                  <span className="font-body text-xs text-ink/25 tracking-widest shrink-0">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="font-body text-base text-ink/70">{c.item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9 flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
+          <h2 className="font-heading text-[clamp(2.5rem,7vw,7rem)] uppercase text-paper leading-none">
+            Работаем<br />вместе?
+          </h2>
+          <div className="flex flex-col gap-4 shrink-0">
+            <a href={settings.telegram_url} target="_blank" rel="noopener noreferrer"
+              className="btn-bracket-inv">
+              Telegram-канал
+            </a>
+            <Link href="/#products" className="btn-bracket-accent">
+              Выбрать продукт
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

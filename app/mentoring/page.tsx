@@ -3,7 +3,7 @@ import { getSiteSettings } from '@/lib/directus'
 import { ContactForm } from '@/components/ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Курирование отдела рекламы WB',
+  title: 'Стратегическое управление рекламой WB',
   description: 'Помогу выстроить прозрачную систему управления рекламой на Wildberries для вашей команды',
 }
 
@@ -32,73 +32,111 @@ export default async function MentoringPage() {
   const settings = await getSiteSettings()
 
   return (
-    <div className="min-h-screen">
-      <section className="bg-gradient-to-br from-gray-900 to-purple-900 py-24">
-        <div className="max-w-4xl mx-auto px-4">
-          <p className="text-purple-300 text-sm font-semibold uppercase tracking-widest mb-4">Для владельцев бизнеса</p>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">Курирование отдела рекламы</h1>
-          <p className="text-xl text-gray-300 max-w-2xl">
+    <div className="min-h-screen bg-paper">
+
+      {/* ── Hero ── */}
+      <section className="bg-ink text-paper pt-32 pb-20">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag text-paper/40 mb-6">Для владельцев бизнеса</p>
+          <h1 className="font-heading text-[clamp(3rem,8vw,8rem)] uppercase text-paper leading-none mb-10">
+            Стратегическое<br />управление
+          </h1>
+          <p className="font-body text-lg text-paper/60 max-w-2xl leading-relaxed">
             У вас есть команда или менеджер по WB, но реклама — чёрный ящик. Я помогу выстроить прозрачную систему, где каждый рубль работает на результат.
           </p>
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4">
-        <section className="py-16">
-          <h2 className="text-3xl font-bold mb-8">Узнаёте себя?</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {pains.map((p, i) => (
-              <div key={i} className="flex gap-3 bg-red-50 border border-red-100 rounded-xl p-5">
-                <span className="text-red-400 shrink-0">✗</span>
-                <p className="text-red-900">{p}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-8">Что происходит в рамках курирования</h2>
-          <div className="flex flex-col gap-4">
-            {format.map((f, i) => (
-              <div key={i} className="flex gap-5 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-                <div className="bg-purple-600 text-white font-bold rounded-xl w-10 h-10 flex items-center justify-center shrink-0">{i + 1}</div>
-                <div>
-                  <h3 className="font-bold text-lg text-gray-900">{f.title}</h3>
-                  <p className="text-gray-600 mt-1">{f.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-8">Результат для вашего бизнеса</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {results.map((r, i) => (
-              <div key={i} className="flex gap-3 bg-purple-50 rounded-xl p-5">
-                <span className="text-purple-500">✓</span>
-                <p className="text-purple-900 font-medium">{r}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-8">
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start">
-            <span className="text-2xl">⚠️</span>
+      {/* ── Боли ── */}
+      <section className="py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
             <div>
-              <p className="font-bold text-amber-900">Ограниченное количество мест</p>
-              <p className="text-amber-800 mt-1">{settings.mentoring_spots_text}</p>
+              <p className="section-tag mb-6">Ситуация</p>
+              <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none">
+                Узнаёте себя?
+              </h2>
+            </div>
+            <div className="flex flex-col pt-2 md:pt-4">
+              {pains.map((p, i) => (
+                <div key={i} className="flex items-baseline gap-4 border-b border-ink/10 py-5">
+                  <span className="font-body text-xs text-ink/25 tracking-widest shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                  <p className="font-body text-base text-ink/70">{p}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="py-16 border-t">
-          <h2 className="text-3xl font-bold mb-3">Оставьте заявку</h2>
-          <p className="text-gray-500 mb-8">Расскажите о ситуации — разберём, подходит ли вам этот формат</p>
-          <div className="max-w-lg"><ContactForm type="mentoring" /></div>
-        </section>
-      </div>
+      {/* ── Что происходит ── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <p className="section-tag text-paper/40 mb-6">Процесс</p>
+          <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-paper leading-none mb-16">
+            Как мы работаем
+          </h2>
+          <div className="grid md:grid-cols-2 gap-0 border-t border-paper/10">
+            {format.map((f, i) => (
+              <div key={i} className="border-b border-r-0 md:odd:border-r border-paper/10 py-8 md:pr-12">
+                <span className="font-body text-xs text-accent tracking-widest block mb-4">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="font-heading text-2xl uppercase text-paper leading-tight mb-3">{f.title}</h3>
+                <p className="font-body text-sm text-paper/50 leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Результат ── */}
+      <section className="py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9">
+          <div className="grid md:grid-cols-[1fr_2fr] gap-16 items-start">
+            <div>
+              <p className="section-tag mb-6">Итог</p>
+              <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none">
+                Результат для бизнеса
+              </h2>
+            </div>
+            <div className="flex flex-col">
+              {results.map((r, i) => (
+                <div key={i} className="flex items-baseline gap-6 border-b border-ink/10 py-5">
+                  <span className="font-body text-xs text-ink/25 tracking-widest shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                  <p className="font-body text-base text-ink/70">{r}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Внимание: мест мало ── */}
+      <section className="py-10 bg-accent/8 border-y border-accent/20">
+        <div className="max-w-[1400px] mx-auto px-9 flex items-center gap-6">
+          <div className="w-1 h-10 bg-accent shrink-0" />
+          <div>
+            <p className="font-heading text-xl uppercase text-ink">Ограниченное количество мест</p>
+            <p className="font-body text-sm text-ink/60 mt-1">{settings.mentoring_spots_text}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Форма ── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-9 grid md:grid-cols-2 gap-16 items-start">
+          <div>
+            <h2 className="font-heading text-[clamp(2.5rem,7vw,6rem)] uppercase text-paper leading-none">
+              Оставьте<br />заявку
+            </h2>
+            <p className="font-body text-base text-paper/50 mt-6 max-w-sm leading-relaxed">
+              Расскажите о ситуации — разберём, подходит ли вам этот формат
+            </p>
+          </div>
+          <div className="pt-2">
+            <ContactForm type="mentoring" />
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

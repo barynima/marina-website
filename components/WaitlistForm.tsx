@@ -15,11 +15,7 @@ export function WaitlistForm() {
   const [submitted, setSubmitted] = useState(false)
   const [serverError, setServerError] = useState('')
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<WaitlistFormData>()
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<WaitlistFormData>()
 
   const onSubmit = async (data: WaitlistFormData) => {
     setServerError('')
@@ -38,50 +34,31 @@ export function WaitlistForm() {
 
   if (submitted) {
     return (
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-8 text-center">
-        <div className="text-4xl mb-3">✓</div>
-        <p className="text-purple-800 font-semibold text-lg">Вы в списке — напишем, когда откроется набор.</p>
+      <div className="border-t border-paper/20 pt-8">
+        <p className="font-heading text-3xl uppercase text-paper">Вы в списке</p>
+        <p className="font-body text-sm text-paper/50 mt-3">Напишем, когда откроется набор.</p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <Input
-        label="Имя *"
-        placeholder="Ваше имя"
-        error={errors.name?.message}
-        {...register('name', {
-          required: 'Укажите имя',
-          minLength: { value: 2, message: 'Минимум 2 символа' },
-        })}
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+      <Input label="Имя *" placeholder="Ваше имя" error={errors.name?.message}
+        {...register('name', { required: 'Укажите имя', minLength: { value: 2, message: 'Минимум 2 символа' } })}
       />
-      <Input
-        label="Telegram *"
-        placeholder="@username или +7..."
-        error={errors.telegram?.message}
+      <Input label="Telegram *" placeholder="@username или +7..." error={errors.telegram?.message}
         {...register('telegram', {
           required: 'Укажите Telegram',
-          pattern: {
-            value: /^(@[\w]+|\+7[\d]{10}|8[\d]{10})$/,
-            message: 'Формат: @username или +7XXXXXXXXXX',
-          },
+          pattern: { value: /^(@[\w]+|\+7[\d]{10}|8[\d]{10})$/, message: 'Формат: @username или +7XXXXXXXXXX' },
         })}
       />
-      <Input
-        label="Email (необязательно)"
-        type="email"
-        placeholder="you@example.com"
-        error={errors.email?.message}
+      <Input label="Email (необязательно)" type="email" placeholder="you@example.com" error={errors.email?.message}
         {...register('email', {
-          pattern: {
-            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            message: 'Введите корректный email',
-          },
+          pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Введите корректный email' },
         })}
       />
-      {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
-      <Button type="submit" size="lg" disabled={isSubmitting}>
+      {serverError && <p className="font-body text-xs text-red-400">{serverError}</p>}
+      <Button type="submit" size="lg" disabled={isSubmitting} className="self-start">
         {isSubmitting ? 'Отправляю...' : 'Записаться в предзапись'}
       </Button>
     </form>

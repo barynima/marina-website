@@ -5,13 +5,18 @@ interface Review {
   product: string
 }
 
-export function ReviewCard({ review }: { review: Review }) {
+export function ReviewCard({ review, index }: { review: Review; index: number }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col gap-4">
-      <p className="text-gray-700 italic leading-relaxed">«{review.text}»</p>
+    <div className="border-t border-ink/15 pt-8 flex flex-col gap-5">
+      <span className="font-body text-xs text-ink/25 tracking-widest">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <p className="font-body text-base text-ink/70 leading-relaxed italic">
+        «{review.text}»
+      </p>
       <div className="flex items-center justify-between">
-        <span className="font-semibold text-gray-900">{review.name}</span>
-        <span className="text-xs text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{review.product}</span>
+        <span className="font-heading text-lg uppercase text-ink">{review.name}</span>
+        <span className="section-tag">{review.product}</span>
       </div>
     </div>
   )

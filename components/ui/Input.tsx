@@ -12,30 +12,34 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 export function Input({ label, error, className = '', ...props }: InputProps) {
   return (
-    <div className="flex flex-col gap-1">
-      {label && <label className="text-sm font-medium text-gray-700">{label}</label>}
+    <div className="flex flex-col gap-2">
+      {label && (
+        <label className="font-body text-xs tracking-[0.15em] uppercase text-paper/40">{label}</label>
+      )}
       <input
-        className={`w-full px-4 py-3 border rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition ${
-          error ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-white'
+        className={`w-full px-0 py-3 bg-transparent border-b text-paper placeholder-paper/25 focus:outline-none transition font-body text-base ${
+          error ? 'border-red-400' : 'border-paper/20 focus:border-paper/60'
         } ${className}`}
         {...props}
       />
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="font-body text-xs text-red-400">{error}</p>}
     </div>
   )
 }
 
 export function Textarea({ label, error, className = '', ...props }: TextareaProps) {
   return (
-    <div className="flex flex-col gap-1">
-      {label && <label className="text-sm font-medium text-gray-700">{label}</label>}
+    <div className="flex flex-col gap-2">
+      {label && (
+        <label className="font-body text-xs tracking-[0.15em] uppercase text-paper/40">{label}</label>
+      )}
       <textarea
-        className={`w-full px-4 py-3 border rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition resize-none ${
-          error ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-white'
+        className={`w-full px-0 py-3 bg-transparent border-b text-paper placeholder-paper/25 focus:outline-none transition font-body text-base resize-none ${
+          error ? 'border-red-400' : 'border-paper/20 focus:border-paper/60'
         } ${className}`}
         {...props}
       />
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="font-body text-xs text-red-400">{error}</p>}
     </div>
   )
 }
