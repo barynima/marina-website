@@ -63,3 +63,19 @@ export const getAbout = () =>
 
 export const getSiteSettings = () =>
   fetchDirectus<SiteSettings>('/items/site_settings/1')
+
+export interface HomeContent {
+  hero_title: string
+  hero_subtitle: string
+  hero_photo: string | null
+  pains: { text: string }[]
+  results: { text: string }[]
+  stats: { num: string; label: string }[]
+  about_short: string
+}
+
+export const getHomeContent = () =>
+  fetchDirectus<HomeContent>('/items/home_content/1')
+
+export const getAssetUrl = (fileId: string | null) =>
+  fileId ? `${process.env.DIRECTUS_URL || 'http://194.87.83.234:8055'}/assets/${fileId}` : null
