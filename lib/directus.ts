@@ -78,4 +78,4 @@ export const getHomeContent = () =>
   fetchDirectus<HomeContent>('/items/home_content/1')
 
 export const getAssetUrl = (fileId: string | null) =>
-  fileId ? `${process.env.DIRECTUS_URL || 'http://194.87.83.234:8055'}/assets/${fileId}` : null
+  fileId ? `/api/asset/${fileId}` : null
