@@ -1,12 +1,22 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Oswald, Jost } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { SITE_CONFIG } from '@/config/site'
 import { getSiteSettings } from '@/lib/directus'
 
-const inter = Inter({ subsets: ['latin', 'cyrillic'] })
+const oswald = Oswald({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-oswald',
+  weight: ['400', '500', '600', '700'],
+})
+
+const jost = Jost({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-jost',
+  weight: ['300', '400', '500', '600'],
+})
 
 export const metadata: Metadata = {
   title: {
@@ -28,10 +38,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const settings = await getSiteSettings()
 
   return (
-    <html lang="ru">
-      <body className={`${inter.className} bg-gray-50 text-gray-900 antialiased`}>
+    <html lang="ru" className={`${oswald.variable} ${jost.variable}`}>
+      <body>
         <Header telegramUrl={settings.telegram_url} />
-        <main className="pt-16">{children}</main>
+        <main>{children}</main>
         <Footer telegramUrl={settings.telegram_url} />
       </body>
     </html>

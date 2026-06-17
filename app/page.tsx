@@ -9,12 +9,6 @@ export const metadata: Metadata = {
   description: 'Помогаю селлерам и менеджерам WB перестать сливать бюджет и управлять рекламой системно',
 }
 
-const products = [
-  { label: 'Только начинаю', sub: 'База рекламы (мини-курс)', href: '/mini', icon: '🚀' },
-  { label: 'Уже продаю, хочу рост', sub: 'Флагманский курс', href: '/course', icon: '📈' },
-  { label: 'Есть команда, нужен результат', sub: 'Курирование отдела', href: '/mentoring', icon: '🏢' },
-]
-
 export default async function HomePage() {
   const [cases, settings, home] = await Promise.all([
     getCases(),
@@ -22,182 +16,236 @@ export default async function HomePage() {
     getHomeContent(),
   ])
 
-  const telegramUrl = settings.telegram_url
   const heroPhotoUrl = getAssetUrl(home.hero_photo)
+  const telegramUrl = settings.telegram_url
 
   return (
     <>
-      {/* Hero */}
-      <section className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-purple-700 via-purple-600 to-indigo-600 flex items-center">
-        <div className="max-w-6xl mx-auto px-4 py-20 w-full">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Текст */}
-            <div className="flex-1">
-              <p className="text-purple-200 text-sm font-semibold uppercase tracking-widest mb-4">
-                Эксперт по рекламе Wildberries
-              </p>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section className="relative min-h-screen bg-ink text-paper overflow-hidden">
+        {/* Фото фон */}
+        {heroPhotoUrl && (
+          <div className="absolute inset-0">
+            <Image
+              src={heroPhotoUrl}
+              alt="Марина"
+              fill
+              className="object-cover object-center opacity-40"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/60 to-ink/20" />
+          </div>
+        )}
+
+        {/* Если нет фото — заглушка с градиентом */}
+        {!heroPhotoUrl && (
+          <div className="absolute inset-0 bg-gradient-to-br from-ink via-ink/95 to-accent/20" />
+        )}
+
+        {/* Контент */}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 pt-28 pb-20 flex flex-col justify-between min-h-screen">
+          {/* Большое имя */}
+          <div>
+            <h1 className="font-heading font-bold text-[clamp(5rem,18vw,18rem)] uppercase leading-none tracking-tightest text-paper">
+              МАРИНА
+            </h1>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mt-4">
+              <p className="font-heading text-[clamp(1.2rem,3vw,2.8rem)] uppercase text-paper/50 leading-none max-w-xl">
                 {home.hero_title}
-              </h1>
-              <p className="mt-6 text-lg sm:text-xl text-purple-100 max-w-2xl leading-relaxed">
-                {home.hero_subtitle}
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <a
-                  href={telegramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white text-purple-700 font-semibold px-8 py-4 rounded-xl hover:bg-purple-50 transition text-center"
-                >
-                  Подписаться на Telegram
-                </a>
-                <a
-                  href="#products"
-                  className="border border-white text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/10 transition text-center"
-                >
-                  Посмотреть продукты
+              <div className="flex flex-col items-start md:items-end gap-4">
+                <p className="font-body text-sm text-paper/50 max-w-xs text-right leading-relaxed hidden md:block">
+                  {home.hero_subtitle}
+                </p>
+                <a href={telegramUrl} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv">
+                  Telegram
                 </a>
               </div>
             </div>
+          </div>
 
-            {/* Фото */}
-            {heroPhotoUrl ? (
-              <div className="shrink-0">
-                <div className="w-72 h-72 lg:w-96 lg:h-96 rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20">
-                  <Image
-                    src={heroPhotoUrl}
-                    alt="Марина — эксперт по рекламе WB"
-                    width={384}
-                    height={384}
-                    className="w-full h-full object-cover"
-                    priority
-                  />
+          {/* Нижняя строка */}
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mt-16">
+            <p className="font-body text-sm text-paper/40 max-w-sm leading-relaxed md:hidden">
+              {home.hero_subtitle}
+            </p>
+            <div className="flex gap-12">
+              {home.stats.map((s, i) => (
+                <div key={i}>
+                  <p className="font-heading text-4xl md:text-5xl font-bold text-paper leading-none">{s.num}</p>
+                  <p className="font-body text-xs text-paper/40 tracking-widest uppercase mt-1">{s.label}</p>
                 </div>
-              </div>
-            ) : (
-              <div className="shrink-0">
-                <div className="w-72 h-72 lg:w-96 lg:h-96 rounded-3xl bg-white/10 border-2 border-dashed border-white/30 flex flex-col items-center justify-center text-white/60 gap-3">
-                  <span className="text-5xl">📸</span>
-                  <p className="text-sm text-center px-4">Загрузите фото в Directus<br/>Home Content → hero_photo</p>
+              ))}
+            </div>
+            <Link href="#products" className="btn-bracket-inv hidden md:inline-flex">
+              Продукты
+            </Link>
+          </div>
+        </div>
+
+        {/* Вертикальная линия-декор */}
+        <div className="absolute top-0 right-[30%] bottom-0 w-px bg-paper/5 hidden lg:block" />
+      </section>
+
+      {/* ── ФИЛОСОФИЯ / БОЛИ ─────────────────────────────────── */}
+      <section className="bg-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            {/* Заголовок-манифест */}
+            <div>
+              <p className="section-tag mb-6">Ситуация</p>
+              <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] uppercase text-ink leading-none">
+                С чем приходят чаще всего
+              </h2>
+            </div>
+            {/* Список болей */}
+            <div className="flex flex-col gap-0 pt-2 md:pt-16">
+              {home.pains.map((pain, i) => (
+                <div key={i} className="flex items-baseline gap-4 border-b border-ink/10 py-5">
+                  <span className="font-body text-xs text-ink/25 tracking-widest shrink-0">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="font-body text-base text-ink/70 leading-snug">{pain.text}</p>
                 </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Products nav */}
-      <section id="products" className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-3">Выберите свой путь</h2>
-          <p className="text-gray-500 text-center mb-12">Найдите продукт под вашу ситуацию</p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {products.map((p) => (
+      {/* ── РЕЗУЛЬТАТЫ ───────────────────────────────────────── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="grid md:grid-cols-[1fr_2fr] gap-16 items-start">
+            <div>
+              <p className="section-tag text-paper/40 mb-6">После работы</p>
+              <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] uppercase text-paper leading-none">
+                Что изменится
+              </h2>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-px bg-paper/10 border border-paper/10">
+              {home.results.map((r, i) => (
+                <div key={i} className="bg-ink p-8">
+                  <span className="font-body text-xs text-accent tracking-widest block mb-3">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="font-body text-base text-paper/70 leading-relaxed">{r.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ПРОДУКТЫ ─────────────────────────────────────────── */}
+      <section id="products" className="bg-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <p className="section-tag mb-4">Продукты</p>
+          <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] uppercase text-ink leading-none mb-16">
+            Выберите свой путь
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-0 border-t border-ink/15">
+            {[
+              { label: 'Только начинаю', title: 'База рекламы', sub: 'Мини-курс', href: '/mini', num: '01' },
+              { label: 'Уже продаю, хочу рост', title: 'Флагманский курс', sub: 'Полная программа', href: '/course', num: '02' },
+              { label: 'Есть команда', title: 'Курирование отдела', sub: 'Менторинг', href: '/mentoring', num: '03' },
+            ].map((p) => (
               <Link
                 key={p.href}
                 href={p.href}
-                className="bg-gray-50 border border-gray-100 rounded-2xl p-8 hover:border-purple-300 hover:shadow-md transition group"
+                className="group border-b md:border-b-0 md:border-r border-ink/15 last:border-r-0 last:border-b-0 p-8 flex flex-col gap-6 hover:bg-ink/5 transition-colors"
               >
-                <div className="text-4xl mb-4">{p.icon}</div>
-                <p className="text-gray-500 text-sm mb-2">{p.label}</p>
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-700 transition">{p.sub}</h3>
-                <p className="mt-4 text-purple-600 font-semibold text-sm">Перейти →</p>
+                <span className="font-body text-xs text-ink/25 tracking-widest">{p.num}</span>
+                <div>
+                  <p className="font-body text-xs text-ink/40 uppercase tracking-widest mb-3">{p.label}</p>
+                  <h3 className="font-heading text-3xl md:text-4xl uppercase text-ink leading-tight group-hover:text-accent transition-colors">
+                    {p.title}
+                  </h3>
+                  <p className="font-body text-sm text-ink/40 mt-2">{p.sub}</p>
+                </div>
+                <span className="btn-bracket-accent self-start mt-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                  Подробнее
+                </span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pains */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">С чем приходят чаще всего</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {home.pains.map((pain, i) => (
-              <div key={i} className="flex items-start gap-3 bg-white rounded-xl p-5 shadow-sm">
-                <span className="text-red-400 mt-0.5 text-lg">✗</span>
-                <p className="text-gray-700">{pain.text}</p>
+      {/* ── КЕЙСЫ ────────────────────────────────────────────── */}
+      {cases.length > 0 && (
+        <section className="bg-ink text-paper py-24 md:py-36">
+          <div className="max-w-[1400px] mx-auto px-6">
+            <div className="flex items-end justify-between mb-16 gap-8">
+              <div>
+                <p className="section-tag text-paper/40 mb-4">Кейсы</p>
+                <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] uppercase text-paper leading-none">
+                  Результаты клиентов
+                </h2>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <Link href="/about" className="btn-bracket-inv shrink-0 hidden md:inline-flex">
+                Все кейсы
+              </Link>
+            </div>
 
-      {/* Results */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Что изменится после работы</h2>
-          <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-            {home.results.map((r, i) => (
-              <div key={i} className="flex items-start gap-3 bg-purple-50 rounded-xl p-5">
-                <span className="text-purple-500 mt-0.5 text-lg">✓</span>
-                <p className="text-purple-900 font-medium">{r.text}</p>
+            <div className="grid md:grid-cols-3 gap-8">
+              {cases.map((c, i) => (
+                <CaseCard key={c.id} item={c} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── ОБО МНЕ ──────────────────────────────────────────── */}
+      <section className="bg-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="grid md:grid-cols-[1fr_1fr] gap-16 items-center">
+            <div>
+              <p className="section-tag mb-6">Обо мне</p>
+              <h2 className="font-heading text-[clamp(3rem,8vw,7rem)] uppercase text-ink leading-none mb-8">
+                Привет,<br />я Марина
+              </h2>
+              <p className="font-body text-base text-ink/60 leading-relaxed max-w-md mb-10">
+                {home.about_short}
+              </p>
+              <Link href="/about" className="btn-bracket text-ink">
+                Подробнее
+              </Link>
+            </div>
+            {/* Декоративный блок с акцентом */}
+            <div className="relative">
+              <div className="aspect-[3/4] bg-accent/10 border border-accent/20 flex items-end p-8">
+                <div className="text-left">
+                  {home.stats.map((s, i) => (
+                    <div key={i} className="mb-6 last:mb-0">
+                      <p className="font-heading text-5xl text-accent leading-none">{s.num}</p>
+                      <p className="font-body text-xs text-ink/40 tracking-widest uppercase mt-1">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+              {/* Смещённый прямоугольник */}
+              <div className="absolute -top-4 -right-4 w-32 h-32 bg-accent/20 -z-10" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-purple-700">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            {home.stats.map((s, i) => (
-              <div key={i}>
-                <p className="text-5xl font-bold text-white">{s.num}</p>
-                <p className="text-purple-200 mt-2 text-lg">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Cases */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Кейсы</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {cases.map((c) => (
-              <CaseCard key={c.id} item={c} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About short */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Привет, я Марина</h2>
-          <p className="text-gray-600 text-lg leading-relaxed mb-8">{home.about_short}</p>
-          <Link
-            href="/about"
-            className="inline-block bg-purple-600 text-white font-semibold px-8 py-3 rounded-xl hover:bg-purple-700 transition"
-          >
-            Подробнее обо мне
-          </Link>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-purple-700 to-indigo-600">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Готовы начать?</h2>
-          <p className="text-purple-100 mb-10 text-lg">Подпишитесь на канал или выберите подходящий продукт</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={telegramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-purple-700 font-semibold px-8 py-4 rounded-xl hover:bg-purple-50 transition"
-            >
-              Подписаться на Telegram
+      {/* ── CTA ──────────────────────────────────────────────── */}
+      <section className="bg-ink text-paper py-24 md:py-36">
+        <div className="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
+          <h2 className="font-heading text-[clamp(3rem,8vw,8rem)] uppercase text-paper leading-none max-w-2xl">
+            Готовы начать?
+          </h2>
+          <div className="flex flex-col gap-4 shrink-0">
+            <a href={telegramUrl} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv">
+              Telegram-канал
             </a>
-            <a
-              href="#products"
-              className="border border-white text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/10 transition"
-            >
+            <Link href="#products" className="btn-bracket-accent">
               Выбрать продукт
-            </a>
+            </Link>
           </div>
         </div>
       </section>

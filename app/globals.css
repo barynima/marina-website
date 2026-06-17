@@ -2,26 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #F5F4F0;
+    color: #0D0D0D;
+    font-family: var(--font-jost), sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-oswald), sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+@layer components {
+  /* Editorial bracket button */
+  .btn-bracket {
+    @apply inline-flex items-center gap-2 border border-current px-6 py-3 text-sm font-body font-medium tracking-widest uppercase transition-all duration-200;
+  }
+  .btn-bracket::before { content: "[ "; }
+  .btn-bracket::after  { content: " ]"; }
+  .btn-bracket:hover {
+    @apply bg-ink text-paper;
+  }
+  .btn-bracket-inv {
+    @apply btn-bracket border-paper text-paper;
+  }
+  .btn-bracket-inv:hover {
+    @apply bg-paper text-ink;
+  }
+  .btn-bracket-accent {
+    @apply btn-bracket border-accent text-accent;
+  }
+  .btn-bracket-accent:hover {
+    @apply bg-accent text-white;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Section label */
+  .section-tag {
+    @apply text-xs font-body tracking-[0.25em] uppercase text-accent;
   }
 }

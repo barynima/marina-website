@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const navLinks = [
-  { href: '/', label: 'Главная' },
   { href: '/course', label: 'Курс' },
   { href: '/mini', label: 'База рекламы' },
   { href: '/about', label: 'Обо мне' },
@@ -15,41 +14,65 @@ export function Header({ telegramUrl }: { telegramUrl: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg text-purple-700 hover:text-purple-800 transition">
-          Марина WB
+    <header className="fixed top-0 left-0 right-0 z-50 mix-blend-normal">
+      <div className="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="font-heading text-xl font-bold tracking-widest uppercase text-ink hover:text-accent transition-colors">
+          Марина
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6">
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm text-gray-600 hover:text-purple-700 transition font-medium">
+            <Link
+              key={l.href}
+              href={l.href}
+              className="font-body text-xs tracking-[0.15em] uppercase text-ink/60 hover:text-ink transition-colors"
+            >
               {l.label}
             </Link>
           ))}
-          <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
-            className="ml-2 bg-purple-600 text-white text-sm font-semibold px-4 py-2 rounded-xl hover:bg-purple-700 transition">
+          <a
+            href={telegramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-bracket text-ink"
+          >
             Telegram
           </a>
         </nav>
 
-        <button className="md:hidden p-2 text-gray-600" onClick={() => setOpen(!open)} aria-label="Меню">
-          <span className="block w-6 h-0.5 bg-current mb-1.5" />
-          <span className="block w-6 h-0.5 bg-current mb-1.5" />
-          <span className="block w-6 h-0.5 bg-current" />
+        {/* Burger */}
+        <button
+          className="md:hidden flex flex-col gap-1.5 p-1"
+          onClick={() => setOpen(!open)}
+          aria-label="Меню"
+        >
+          <span className={`block w-6 h-px bg-ink transition-all ${open ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`block w-6 h-px bg-ink transition-all ${open ? 'opacity-0' : ''}`} />
+          <span className={`block w-6 h-px bg-ink transition-all ${open ? '-rotate-45 -translate-y-2' : ''}`} />
         </button>
       </div>
 
+      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-3">
+        <div className="md:hidden bg-paper border-t border-ink/10 px-6 py-8 flex flex-col gap-6">
           {navLinks.map((l) => (
-            <Link key={l.href} href={l.href} onClick={() => setOpen(false)}
-              className="text-gray-700 font-medium hover:text-purple-700 transition py-1">
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="font-heading text-3xl uppercase text-ink hover:text-accent transition-colors"
+            >
               {l.label}
             </Link>
           ))}
-          <a href={telegramUrl} target="_blank" rel="noopener noreferrer"
-            className="bg-purple-600 text-white text-sm font-semibold px-4 py-3 rounded-xl text-center hover:bg-purple-700 transition">
+          <a
+            href={telegramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-bracket text-ink self-start mt-4"
+          >
             Telegram
           </a>
         </div>

@@ -5,20 +5,26 @@ interface Case {
   result: string
 }
 
-export function CaseCard({ item }: { item: Case }) {
+export function CaseCard({ item, index }: { item: Case; index: number }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col gap-4">
-      <div>
-        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Было</span>
-        <p className="mt-1 text-gray-700">{item.before}</p>
-      </div>
-      <div>
-        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Что сделали</span>
-        <p className="mt-1 text-gray-700">{item.action}</p>
-      </div>
-      <div className="bg-purple-50 rounded-xl p-4">
-        <span className="text-xs font-semibold text-purple-500 uppercase tracking-wide">Результат</span>
-        <p className="mt-1 text-purple-900 font-semibold">{item.result}</p>
+    <div className="border-t border-ink/15 pt-8 flex flex-col gap-6">
+      <span className="font-body text-xs tracking-[0.2em] uppercase text-ink/30">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+
+      <div className="flex flex-col gap-4">
+        <div>
+          <p className="section-tag mb-2">Было</p>
+          <p className="font-body text-sm text-ink/60 leading-relaxed">{item.before}</p>
+        </div>
+        <div>
+          <p className="section-tag mb-2">Что сделали</p>
+          <p className="font-body text-sm text-ink/60 leading-relaxed">{item.action}</p>
+        </div>
+        <div>
+          <p className="section-tag mb-2">Результат</p>
+          <p className="font-heading text-2xl uppercase text-ink leading-tight">{item.result}</p>
+        </div>
       </div>
     </div>
   )
