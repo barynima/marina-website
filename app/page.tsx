@@ -5,7 +5,7 @@ import { getCases, getSiteSettings, getHomeContent, getAssetUrl } from '@/lib/di
 import { CaseCard } from '@/components/CaseCard'
 
 export const metadata: Metadata = {
-  title: 'Марина — эксперт по рекламе Wildberries',
+  title: 'Марина Барынина — эксперт по рекламе Wildberries',
   description: 'Помогаю селлерам и менеджерам WB перестать сливать бюджет и управлять рекламой системно',
 }
 
@@ -17,6 +17,7 @@ export default async function HomePage() {
   ])
 
   const heroPhotoUrl = getAssetUrl(home.hero_photo)
+  const aboutPhotoUrl = getAssetUrl(home.about_photo)
   const telegramUrl = settings.telegram_url
 
   return (
@@ -28,7 +29,7 @@ export default async function HomePage() {
           <div className="absolute inset-0">
             <Image
               src={heroPhotoUrl}
-              alt="Марина"
+              alt="Марина Барынина"
               fill
               className="object-cover object-center opacity-40"
               priority
@@ -36,37 +37,33 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/60 to-ink/20" />
           </div>
         )}
-
-        {/* Если нет фото — заглушка с градиентом */}
         {!heroPhotoUrl && (
           <div className="absolute inset-0 bg-gradient-to-br from-ink via-ink/95 to-accent/20" />
         )}
 
-        {/* Контент */}
-        <div className="relative z-10 max-w-[1400px] mx-auto px-9 pt-28 pb-20 flex flex-col justify-between min-h-screen">
-          {/* Заголовок без имени */}
-          <div>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mt-4">
-              <p className="font-heading text-[clamp(1.2rem,3vw,2.8rem)] uppercase text-paper/50 leading-none max-w-xl">
-                {home.hero_title}
-              </p>
-              <div className="flex flex-col items-start md:items-end gap-4">
-                <p className="font-body text-sm text-paper/50 max-w-xs text-right leading-relaxed hidden md:block">
-                  {home.hero_subtitle}
-                </p>
-                <a href={telegramUrl} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv">
-                  Telegram
-                </a>
-              </div>
-            </div>
-          </div>
+        {/* Контент — flex-col, заголовок тянется к низу */}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-9 pt-20 pb-16 flex flex-col min-h-screen">
 
-          {/* Нижняя строка */}
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mt-16">
-            <p className="font-body text-sm text-paper/40 max-w-sm leading-relaxed md:hidden">
+          {/* Верхний пустой спейсер — занимает всё пространство */}
+          <div className="flex-1" />
+
+          {/* Subtitle посередине, смещён вниз пропорционально */}
+          <div className="mb-16 md:mb-24">
+            <p className="font-body text-sm md:text-base text-paper/45 max-w-sm leading-relaxed">
               {home.hero_subtitle}
             </p>
-            <div className="flex gap-12">
+          </div>
+
+          {/* Заголовок прямо над цифрами */}
+          <div className="mb-10">
+            <h1 className="font-heading text-[clamp(1.8rem,4vw,3.5rem)] uppercase text-paper leading-tight max-w-2xl">
+              {home.hero_title}
+            </h1>
+          </div>
+
+          {/* Нижняя строка: статистика + кнопка */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+            <div className="flex gap-10 md:gap-16">
               {home.stats.map((s, i) => (
                 <div key={i}>
                   <p className="font-heading text-4xl md:text-5xl font-bold text-paper leading-none">{s.num}</p>
@@ -74,28 +71,26 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
-            <Link href="#products" className="btn-bracket-inv hidden md:inline-flex">
-              Продукты
-            </Link>
+            <a href={telegramUrl} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv shrink-0">
+              Telegram
+            </a>
           </div>
         </div>
 
-        {/* Вертикальная линия-декор */}
+        {/* Декор линия */}
         <div className="absolute top-0 right-[30%] bottom-0 w-px bg-paper/5 hidden lg:block" />
       </section>
 
-      {/* ── ФИЛОСОФИЯ / БОЛИ ─────────────────────────────────── */}
+      {/* ── БОЛИ ─────────────────────────────────────────────── */}
       <section className="bg-paper py-24 md:py-36">
         <div className="max-w-[1400px] mx-auto px-9">
           <div className="grid md:grid-cols-2 gap-16 items-start">
-            {/* Заголовок-манифест */}
             <div>
               <p className="section-tag mb-6">Ситуация</p>
               <h2 className="font-heading text-[clamp(2.5rem,6vw,5rem)] uppercase text-ink leading-none">
                 С чем приходят чаще всего
               </h2>
             </div>
-            {/* Список болей */}
             <div className="flex flex-col gap-0 pt-2 md:pt-16">
               {home.pains.map((pain, i) => (
                 <div key={i} className="flex items-baseline gap-4 border-b border-ink/10 py-5">
@@ -146,7 +141,7 @@ export default async function HomePage() {
             {[
               { label: 'Только начинаю', title: 'База рекламы', sub: 'Мини-курс', href: '/mini', num: '01' },
               { label: 'Уже продаю, хочу рост', title: 'Флагманский курс', sub: 'Полная программа', href: '/course', num: '02' },
-              { label: 'Есть команда', title: 'Курирование отдела', sub: 'Менторинг', href: '/mentoring', num: '03' },
+              { label: 'Есть команда', title: 'Стратегическое управление', sub: 'Менторинг', href: '/mentoring', num: '03' },
             ].map((p) => (
               <Link
                 key={p.href}
@@ -185,7 +180,6 @@ export default async function HomePage() {
                 Все кейсы
               </Link>
             </div>
-
             <div className="grid md:grid-cols-3 gap-8">
               {cases.map((c, i) => (
                 <CaseCard key={c.id} item={c} index={i} />
@@ -198,10 +192,34 @@ export default async function HomePage() {
       {/* ── ОБО МНЕ ──────────────────────────────────────────── */}
       <section className="bg-paper py-24 md:py-36">
         <div className="max-w-[1400px] mx-auto px-9">
-          <div className="grid md:grid-cols-[1fr_1fr] gap-16 items-center">
-            <div>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Фото */}
+            <div className="relative order-2 md:order-1">
+              {aboutPhotoUrl ? (
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  <Image
+                    src={aboutPhotoUrl}
+                    alt="Марина Барынина"
+                    fill
+                    className="object-cover object-top"
+                  />
+                  {/* Акцентный прямоугольник-декор */}
+                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 -z-10" />
+                </div>
+              ) : (
+                <div className="aspect-[3/4] bg-accent/10 border border-dashed border-accent/30 flex flex-col items-center justify-center gap-3 text-ink/30">
+                  <span className="font-body text-sm text-center px-6">
+                    Загрузите фото в Directus<br />Home Content → about_photo
+                  </span>
+                </div>
+              )}
+              <div className="absolute -top-4 -left-4 w-32 h-32 bg-ink/5 -z-10 hidden md:block" />
+            </div>
+
+            {/* Текст */}
+            <div className="order-1 md:order-2">
               <p className="section-tag mb-6">Обо мне</p>
-              <h2 className="font-heading text-[clamp(3rem,8vw,7rem)] uppercase text-ink leading-none mb-8">
+              <h2 className="font-heading text-[clamp(3rem,6vw,6rem)] uppercase text-ink leading-none mb-8">
                 Привет,<br />я Марина
               </h2>
               <p className="font-body text-base text-ink/60 leading-relaxed max-w-md mb-10">
@@ -210,21 +228,6 @@ export default async function HomePage() {
               <Link href="/about" className="btn-bracket text-ink">
                 Подробнее
               </Link>
-            </div>
-            {/* Декоративный блок с акцентом */}
-            <div className="relative">
-              <div className="aspect-[3/4] bg-accent/10 border border-accent/20 flex items-end p-8">
-                <div className="text-left">
-                  {home.stats.map((s, i) => (
-                    <div key={i} className="mb-6 last:mb-0">
-                      <p className="font-heading text-5xl text-accent leading-none">{s.num}</p>
-                      <p className="font-body text-xs text-ink/40 tracking-widest uppercase mt-1">{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Смещённый прямоугольник */}
-              <div className="absolute -top-4 -right-4 w-32 h-32 bg-accent/20 -z-10" />
             </div>
           </div>
         </div>

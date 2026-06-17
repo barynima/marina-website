@@ -68,6 +68,7 @@ export interface HomeContent {
   hero_title: string
   hero_subtitle: string
   hero_photo: string | null
+  about_photo: string | null
   pains: { text: string }[]
   results: { text: string }[]
   stats: { num: string; label: string }[]
