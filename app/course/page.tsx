@@ -51,9 +51,12 @@ export default async function CoursePage() {
       <section className="bg-ink text-paper pt-32 pb-20">
         <div className="max-w-[1400px] mx-auto px-9">
           <p className="section-tag text-paper/40 mb-6">Флагманский курс</p>
-          <h1 className="font-heading text-[clamp(3rem,9vw,8rem)] uppercase text-paper leading-none mb-10">
-            Реклама на WB:<br />от хаоса<br />к системе
+          <h1 className="font-heading uppercase leading-none mb-4">
+            <span className="text-[clamp(3rem,9vw,8rem)] text-paper"><span className="text-accent">WB</span> Реклама<br />под контролем</span>
           </h1>
+          <p className="font-heading text-[clamp(1.2rem,3vw,2.2rem)] uppercase text-paper/35 leading-none mb-10">
+            от хаоса к системе
+          </p>
           <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12">
             6-недельный курс для тех, кто хочет управлять рекламой самостоятельно и получать измеримый результат
           </p>
@@ -110,6 +113,15 @@ export default async function CoursePage() {
             </div>
           </div>
         </div>
+
+        {/* CTA после "для кого" */}
+        <div className="max-w-[1400px] mx-auto px-9 pb-16 md:pb-24 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <p className="font-body text-base text-ink/50 max-w-xs">Это про вас? Разберём вашу ситуацию на старте</p>
+          {isOpen
+            ? <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer" className="btn-bracket text-ink shrink-0">Записаться на курс</a>
+            : <a href={settings.telegram_url} target="_blank" rel="noopener noreferrer" className="btn-bracket text-ink shrink-0">Написать в Telegram</a>
+          }
+        </div>
       </section>
 
       {/* ── Результат ── */}
@@ -126,6 +138,17 @@ export default async function CoursePage() {
                 <p className="font-body text-base text-paper/70 leading-relaxed">{r}</p>
               </div>
             ))}
+          </div>
+
+          {/* CTA после результатов */}
+          <div className="mt-16 pt-12 border-t border-paper/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+            <p className="font-heading text-2xl md:text-3xl uppercase text-paper leading-tight max-w-sm">
+              Хотите такой же результат?
+            </p>
+            {isOpen
+              ? <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv shrink-0">Записаться</a>
+              : <a href={settings.telegram_url} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv shrink-0">В предзапись</a>
+            }
           </div>
         </div>
       </section>
