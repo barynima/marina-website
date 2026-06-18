@@ -55,7 +55,7 @@ export default async function CoursePage() {
             <span className="text-[clamp(3rem,9vw,8rem)] text-paper"><span className="text-accent">WB</span> Реклама<br />под контролем</span>
           </h1>
           <p className="font-heading text-[clamp(1.2rem,3vw,2.2rem)] uppercase text-paper/35 leading-none mb-10">
-            от хаоса к системе
+            от хаоса <span className="text-accent">→</span> к системе
           </p>
           <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12">
             6-недельный курс для тех, кто хочет управлять рекламой самостоятельно и получать измеримый результат
