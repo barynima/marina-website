@@ -78,5 +78,41 @@ export interface HomeContent {
 export const getHomeContent = () =>
   fetchDirectus<HomeContent>('/items/home_content/1')
 
+export interface CourseContent {
+  hero_title: string
+  hero_subtitle: string
+  description: string
+  for_whom: { text: string }[]
+  results: { text: string }[]
+  modules: { title: string; desc: string }[]
+  format: { title: string; desc: string }[]
+}
+
+export interface MiniContent {
+  hero_title: string
+  description: string
+  for_whom: { text: string }[]
+  skills: { text: string }[]
+  format: { title: string; desc: string }[]
+}
+
+export interface MentoringContent {
+  hero_title: string
+  description: string
+  pains: { text: string }[]
+  process: { title: string; desc: string }[]
+  results: { text: string }[]
+  spots_note: string
+}
+
+export const getCourseContent = () =>
+  fetchDirectus<CourseContent>('/items/course_content/1')
+
+export const getMiniContent = () =>
+  fetchDirectus<MiniContent>('/items/mini_content/1')
+
+export const getMentoringContent = () =>
+  fetchDirectus<MentoringContent>('/items/mentoring_content/1')
+
 export const getAssetUrl = (fileId: string | null) =>
   fileId ? `/api/asset/${fileId}` : null

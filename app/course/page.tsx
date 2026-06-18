@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getSiteSettings, getReviews, getFaq } from '@/lib/directus'
+import { getSiteSettings, getReviews, getFaq, getCourseContent } from '@/lib/directus'
 import { WaitlistForm } from '@/components/WaitlistForm'
 import { ReviewCard } from '@/components/ReviewCard'
 import { FaqAccordion } from '@/components/FaqAccordion'
@@ -9,36 +9,12 @@ export const metadata: Metadata = {
   description: 'Системный курс по внутренней рекламе Wildberries — выстройте управление рекламой и перестаньте сливать бюджет',
 }
 
-const modules = [
-  { title: 'Алгоритмы WB Ads', desc: 'Логика, которую нужно понять раз и навсегда' },
-  { title: 'Аудит кабинета', desc: 'Находим дыры и точки роста' },
-  { title: 'Структура кампаний', desc: 'Типы рекламы и как их применять' },
-  { title: 'Ставки, ДРР и бюджет', desc: 'Управление деньгами без слива' },
-  { title: 'Минус-слова и таргетинг', desc: 'Аналитика, которая работает' },
-  { title: 'Система и масштаб', desc: 'Контроль и предсказуемый рост' },
-]
-
-const forWhom = [
-  'Тратите бюджет на рекламу, но не понимаете, почему не окупается',
-  'Работаете с менеджером, но не можете оценить его работу',
-  'Хотите масштабироваться, но не знаете с чего начать',
-  'Хаос в кабинете — непонятно, что работает, а что нет',
-]
-
-const results = [
-  'Поймёте логику алгоритмов WB Ads',
-  'Выстроите структуру кампаний с нуля',
-  'Научитесь управлять ставками и ДРР',
-  'Сможете оценивать работу подрядчика',
-  'Внедрите систему аналитики и контроля',
-  'Получите предсказуемый результат',
-]
-
 export default async function CoursePage() {
-  const [settings, reviews, faq] = await Promise.all([
+  const [settings, reviews, faq, content] = await Promise.all([
     getSiteSettings(),
     getReviews(),
     getFaq('course'),
+    getCourseContent(),
   ])
 
   const isOpen = settings.course_mode === 'open'
@@ -52,13 +28,19 @@ export default async function CoursePage() {
         <div className="max-w-[1400px] mx-auto px-9">
           <p className="section-tag text-paper/40 mb-6">Флагманский курс</p>
           <h1 className="font-heading uppercase leading-none mb-4">
-            <span className="text-[clamp(3rem,9vw,8rem)] text-paper"><span className="text-accent">WB</span> Реклама<br />под контролем</span>
+            <span className="text-[clamp(3rem,9vw,8rem)] text-paper">
+              <span className="text-accent">WB</span> {content.hero_title.replace(/^WB\s*/i, '')}
+            </span>
           </h1>
           <p className="font-heading text-[clamp(1.2rem,3vw,2.2rem)] uppercase text-paper/35 leading-none mb-10">
-            от хаоса <span className="text-accent">→</span> к системе
+            {content.hero_subtitle.split(/к системе/i).map((part, i, arr) =>
+              i < arr.length - 1
+                ? <span key={i}>{part}<span className="text-accent">→</span> к системе</span>
+                : <span key={i}>{part}</span>
+            )}
           </p>
           <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12">
-            6-недельный курс для тех, кто хочет управлять рекламой самостоятельно и получать измеримый результат
+            {content.description}
           </p>
 
           {isOpen ? (
@@ -76,18 +58,15 @@ export default async function CoursePage() {
                 </p>
               </div>
               <div className="border-t border-accent pt-5 mt-auto">
-                <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer"
-                  className="btn-bracket-inv">
+                <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv">
                   Записаться на курс
                 </a>
               </div>
             </div>
           ) : (
-            <div className="flex flex-col sm:flex-row items-start gap-8">
-              <div className="border-t border-paper/20 pt-5">
-                <p className="font-heading text-xl uppercase text-paper/60">Сейчас — предзапись</p>
-                <p className="font-body text-sm text-paper/40 mt-2">Оставьте заявку — сообщим о старте первыми</p>
-              </div>
+            <div className="border-t border-paper/20 pt-5">
+              <p className="font-heading text-xl uppercase text-paper/60">Сейчас — предзапись</p>
+              <p className="font-body text-sm text-paper/40 mt-2">Оставьте заявку — сообщим о старте первыми</p>
             </div>
           )}
         </div>
@@ -104,10 +83,10 @@ export default async function CoursePage() {
               </h2>
             </div>
             <div className="flex flex-col pt-2 md:pt-4">
-              {forWhom.map((t, i) => (
+              {content.for_whom.map((t, i) => (
                 <div key={i} className="flex items-baseline gap-4 border-b border-ink/10 py-5">
                   <span className="font-body text-xs text-ink/25 tracking-widest shrink-0">{String(i + 1).padStart(2, '0')}</span>
-                  <p className="font-body text-base text-ink/70">{t}</p>
+                  <p className="font-body text-base text-ink/70">{t.text}</p>
                 </div>
               ))}
             </div>
@@ -115,7 +94,7 @@ export default async function CoursePage() {
         </div>
 
         {/* CTA после "для кого" */}
-        <div className="max-w-[1400px] mx-auto px-9 pb-16 md:pb-24 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <div className="max-w-[1400px] mx-auto px-9 pt-16 flex flex-col sm:flex-row items-start sm:items-center gap-6">
           <p className="font-body text-base text-ink/50 max-w-xs">Это про вас? Разберём вашу ситуацию на старте</p>
           {isOpen
             ? <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer" className="btn-bracket text-ink shrink-0">Записаться на курс</a>
@@ -132,10 +111,10 @@ export default async function CoursePage() {
             Что изменится
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-px bg-paper/10 border border-paper/10">
-            {results.map((r, i) => (
+            {content.results.map((r, i) => (
               <div key={i} className="bg-ink p-8">
                 <span className="font-body text-xs text-accent tracking-widest block mb-3">{String(i + 1).padStart(2, '0')}</span>
-                <p className="font-body text-base text-paper/70 leading-relaxed">{r}</p>
+                <p className="font-body text-base text-paper/70 leading-relaxed">{r.text}</p>
               </div>
             ))}
           </div>
@@ -158,10 +137,10 @@ export default async function CoursePage() {
         <div className="max-w-[1400px] mx-auto px-9">
           <p className="section-tag mb-6">Программа</p>
           <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none mb-16">
-            6 модулей
+            {content.modules.length} модулей
           </h2>
           <div className="grid md:grid-cols-2 gap-0 border-t border-ink/15">
-            {modules.map((m, i) => (
+            {content.modules.map((m, i) => (
               <div key={i} className="border-b border-r-0 md:odd:border-r border-ink/15 py-8 md:pr-12">
                 <span className="font-body text-xs text-ink/25 tracking-widest block mb-3">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="font-heading text-2xl uppercase text-ink leading-tight mb-2">{m.title}</h3>
@@ -177,11 +156,7 @@ export default async function CoursePage() {
         <div className="max-w-[1400px] mx-auto px-9">
           <p className="section-tag text-paper/40 mb-6">Формат</p>
           <div className="grid md:grid-cols-3 gap-0 border-t border-paper/10">
-            {[
-              { title: 'Видеоуроки', desc: 'Доступ навсегда' },
-              { title: 'Закрытый чат', desc: 'Обратная связь от куратора' },
-              { title: '6 недель', desc: 'Основная программа' },
-            ].map((f, i) => (
+            {content.format.map((f, i) => (
               <div key={i} className="border-b md:border-b-0 md:border-r border-paper/10 last:border-0 py-8 md:pr-12">
                 <h3 className="font-heading text-3xl uppercase text-paper leading-tight mb-2">{f.title}</h3>
                 <p className="font-body text-sm text-paper/40">{f.desc}</p>
@@ -200,9 +175,7 @@ export default async function CoursePage() {
               Говорят ученики
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {courseReviews.map((r, i) => (
-                <ReviewCard key={r.id} review={r} index={i} />
-              ))}
+              {courseReviews.map((r, i) => <ReviewCard key={r.id} review={r} index={i} />)}
             </div>
           </div>
         </section>
@@ -235,8 +208,7 @@ export default async function CoursePage() {
                   &nbsp;·&nbsp;{settings.course_price.toLocaleString('ru-RU')} ₽
                 </p>
               </div>
-              <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer"
-                className="btn-bracket-inv shrink-0">
+              <a href={settings.course_payment_url} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv shrink-0">
                 Записаться
               </a>
             </>
@@ -250,9 +222,7 @@ export default async function CoursePage() {
                   Оставьте контакты — напишем, когда откроется набор
                 </p>
               </div>
-              <div className="w-full max-w-md">
-                <WaitlistForm />
-              </div>
+              <div className="w-full max-w-md"><WaitlistForm /></div>
             </>
           )}
         </div>
