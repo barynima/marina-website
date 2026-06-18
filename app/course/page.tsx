@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { getSiteSettings, getReviews, getFaq } from '@/lib/directus'
 import { WaitlistForm } from '@/components/WaitlistForm'
 import { ReviewCard } from '@/components/ReviewCard'
