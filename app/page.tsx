@@ -79,8 +79,6 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Декор линия */}
-        <div className="absolute top-0 right-[30%] bottom-0 w-px bg-paper/5 hidden lg:block" />
       </section>
 
       {/* ── БОЛИ ─────────────────────────────────────────────── */}
