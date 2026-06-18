@@ -190,7 +190,7 @@ export default async function HomePage() {
                 </h2>
               </div>
               <Link href="/about" className="btn-bracket-inv shrink-0 hidden md:inline-flex">
-                Все кейсы
+                Ещё кейсы
               </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
