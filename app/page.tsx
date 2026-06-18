@@ -56,9 +56,11 @@ export default async function HomePage() {
 
           {/* Заголовок прямо над цифрами */}
           <div className="mb-10">
-            <h1 className="font-heading text-[clamp(1.8rem,4vw,3.5rem)] uppercase text-paper leading-tight max-w-2xl">
-              {home.hero_title}
-            </h1>
+            <h1 className="font-heading text-[clamp(1.8rem,4vw,3.5rem)] uppercase text-paper leading-tight max-w-2xl"
+              dangerouslySetInnerHTML={{
+                __html: home.hero_title.replace(/Wildberries/gi, '<span style="color:#6E5C92">Wildberries</span>')
+              }}
+            />
           </div>
 
           {/* Нижняя строка: статистика + кнопка */}
