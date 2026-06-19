@@ -56,7 +56,7 @@ export default async function AboutPage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-0 border-t border-paper/10">
             {about.approach.map((a, i) => (
-              <div key={i} className="border-b border-r-0 md:odd:border-r border-paper/10 py-8 px-0 md:pr-12">
+              <div key={i} className="border-b border-r-0 md:odd:border-r border-paper/10 py-8 px-6 md:px-10">
                 <span className="font-body text-xs text-accent tracking-widest block mb-4">
                   {String(i + 1).padStart(2, '0')}
                 </span>
