@@ -20,11 +20,13 @@ export default async function MentoringPage() {
     <div className="min-h-screen bg-paper">
 
       {/* ── Hero ── */}
-      <section className="relative bg-ink text-paper pt-32 pb-20 overflow-hidden">
+      <section className="relative bg-ink text-paper pt-32 pb-20 overflow-hidden min-h-[60vh]">
         {heroPhotoUrl && (
           <div className="absolute inset-0">
-            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-55" priority />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20" />
+            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-60" priority />
+            <div className="absolute inset-0 bg-ink/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/60 to-ink/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
           </div>
         )}
         <div className="relative z-10 max-w-[1400px] mx-auto px-9">

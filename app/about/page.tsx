@@ -22,8 +22,9 @@ export default async function AboutPage() {
         {photoUrl && (
           <div className="absolute inset-0">
             <Image src={photoUrl} alt="Марина Барынина" fill className="object-cover object-top opacity-65" priority />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/40 to-ink/10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-ink/35" />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/60 to-ink/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
           </div>
         )}
         {!photoUrl && (
