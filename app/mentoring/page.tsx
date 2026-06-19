@@ -20,7 +20,7 @@ export default async function MentoringPage() {
           <h1 className="font-heading text-[clamp(3rem,8vw,8rem)] uppercase text-paper leading-none mb-10">
             {content.hero_title}
           </h1>
-          <p className="font-body text-lg text-paper/60 max-w-2xl leading-relaxed">
+          <p className="font-body text-lg text-paper/60 max-w-2xl leading-relaxed whitespace-pre-line">
             {content.description}
           </p>
         </div>
@@ -96,7 +96,7 @@ export default async function MentoringPage() {
             <div className="w-1 h-10 bg-accent shrink-0" />
             <div>
               <p className="font-heading text-xl uppercase text-ink">Ограниченное количество мест</p>
-              <p className="font-body text-sm text-ink/60 mt-1">{content.spots_note}</p>
+              <p className="font-body text-sm text-ink/60 mt-1 whitespace-pre-line">{content.spots_note}</p>
             </div>
           </div>
         </section>

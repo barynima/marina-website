@@ -28,7 +28,7 @@ export default async function MiniCoursePage() {
           <h1 className="font-heading text-[clamp(3.5rem,10vw,9rem)] uppercase text-paper leading-none mb-10">
             {content.hero_title}
           </h1>
-          <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12">
+          <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12 whitespace-pre-line">
             {content.description}
           </p>
           <a href={settings.mini_course_payment_url} target="_blank" rel="noopener noreferrer" className="btn-bracket-inv">
@@ -83,7 +83,7 @@ export default async function MiniCoursePage() {
           <p className="section-tag mb-6">Формат</p>
           <div className="grid md:grid-cols-3 gap-0 border-t border-ink/15">
             {content.format.map((f, i) => (
-              <div key={i} className="border-b md:border-b-0 md:border-r border-ink/15 last:border-0 py-8 md:pr-12">
+              <div key={i} className="border-b md:border-b-0 md:border-r border-ink/15 last:border-0 py-8 px-6 md:px-10">
                 <h3 className="font-heading text-3xl uppercase text-ink leading-tight mb-2">{f.title}</h3>
                 <p className="font-body text-sm text-ink/40">{f.desc}</p>
               </div>

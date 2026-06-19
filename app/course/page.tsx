@@ -39,7 +39,7 @@ export default async function CoursePage() {
                 : <span key={i}>{part}</span>
             )}
           </p>
-          <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12">
+          <p className="font-body text-lg text-paper/60 max-w-xl leading-relaxed mb-12 whitespace-pre-line">
             {content.description}
           </p>
 
@@ -144,7 +144,7 @@ export default async function CoursePage() {
               <div key={i} className="border-b border-r-0 md:odd:border-r border-ink/15 py-8 px-6 md:px-10">
                 <span className="font-body text-xs text-ink/25 tracking-widest block mb-3">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="font-heading text-2xl uppercase text-ink leading-tight mb-2">{m.title}</h3>
-                <p className="font-body text-sm text-ink/50">{m.desc}</p>
+                <p className="font-body text-sm text-ink/50 whitespace-pre-line">{m.desc}</p>
               </div>
             ))}
           </div>

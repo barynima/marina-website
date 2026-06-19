@@ -49,7 +49,7 @@ export default async function HomePage() {
 
           {/* Subtitle посередине, смещён вниз пропорционально */}
           <div className="mb-16 md:mb-24">
-            <p className="font-body text-sm md:text-base text-paper/45 max-w-sm leading-relaxed">
+            <p className="font-body text-sm md:text-base text-paper/45 max-w-sm leading-relaxed whitespace-pre-line">
               {home.hero_subtitle}
             </p>
           </div>
@@ -251,7 +251,7 @@ export default async function HomePage() {
               <h2 className="font-heading text-[clamp(3rem,6vw,6rem)] uppercase text-ink leading-none mb-8">
                 Привет,<br />я Марина
               </h2>
-              <p className="font-body text-base text-ink/60 leading-relaxed max-w-md mb-10">
+              <p className="font-body text-base text-ink/60 leading-relaxed max-w-md mb-10 whitespace-pre-line">
                 {home.about_short}
               </p>
               <Link href="/about" className="btn-bracket text-ink">

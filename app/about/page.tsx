@@ -20,7 +20,7 @@ export default async function AboutPage() {
           <h1 className="font-heading text-[clamp(3.5rem,10vw,9rem)] uppercase text-paper leading-none mb-10">
             Марина<br />Барынина
           </h1>
-          <p className="font-body text-lg md:text-xl text-paper/60 max-w-2xl leading-relaxed">
+          <p className="font-body text-lg md:text-xl text-paper/60 max-w-2xl leading-relaxed whitespace-pre-line">
             {about.headline}
           </p>
         </div>
@@ -38,7 +38,7 @@ export default async function AboutPage() {
             </div>
             <div className="flex flex-col gap-6 pt-2 md:pt-4">
               {about.bio.map((p, i) => (
-                <p key={i} className="font-body text-base md:text-lg text-ink/65 leading-relaxed border-b border-ink/8 pb-6 last:border-0 last:pb-0">
+                <p key={i} className="font-body text-base md:text-lg text-ink/65 leading-relaxed border-b border-ink/8 pb-6 last:border-0 last:pb-0 whitespace-pre-line">
                   {p.paragraph}
                 </p>
               ))}
