@@ -141,7 +141,7 @@ export default async function CoursePage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-0 border-t border-ink/15">
             {content.modules.map((m, i) => (
-              <div key={i} className="border-b border-r-0 md:odd:border-r border-ink/15 py-8 md:pr-12">
+              <div key={i} className="border-b border-r-0 md:odd:border-r border-ink/15 py-8 px-6 md:px-10">
                 <span className="font-body text-xs text-ink/25 tracking-widest block mb-3">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="font-heading text-2xl uppercase text-ink leading-tight mb-2">{m.title}</h3>
                 <p className="font-body text-sm text-ink/50">{m.desc}</p>
@@ -157,7 +157,7 @@ export default async function CoursePage() {
           <p className="section-tag text-paper/40 mb-6">Формат</p>
           <div className="grid md:grid-cols-3 gap-0 border-t border-paper/10">
             {content.format.map((f, i) => (
-              <div key={i} className="border-b md:border-b-0 md:border-r border-paper/10 last:border-0 py-8 md:pr-12">
+              <div key={i} className="border-b md:border-b-0 md:border-r border-paper/10 last:border-0 py-8 px-6 md:px-10">
                 <h3 className="font-heading text-3xl uppercase text-paper leading-tight mb-2">{f.title}</h3>
                 <p className="font-body text-sm text-paper/40">{f.desc}</p>
               </div>
