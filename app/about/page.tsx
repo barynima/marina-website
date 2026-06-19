@@ -33,7 +33,7 @@ export default async function AboutPage() {
             <div>
               <p className="section-tag mb-6">История</p>
               <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] uppercase text-ink leading-none">
-                Как я здесь оказалась
+                Почему я здесь
               </h2>
             </div>
             <div className="flex flex-col gap-6 pt-2 md:pt-4">
