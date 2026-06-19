@@ -5,6 +5,8 @@ import { WaitlistForm } from '@/components/WaitlistForm'
 import { ReviewCard } from '@/components/ReviewCard'
 import { FaqAccordion } from '@/components/FaqAccordion'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'Флагманский курс по рекламе WB',
   description: 'Системный курс по внутренней рекламе Wildberries — выстройте управление рекламой и перестаньте сливать бюджет',
@@ -29,8 +31,8 @@ export default async function CoursePage() {
       <section className="relative bg-ink text-paper pt-32 pb-20 overflow-hidden">
         {heroPhotoUrl && (
           <div className="absolute inset-0">
-            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-30" priority />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/40" />
+            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-55" priority />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20" />
           </div>
         )}
         <div className="relative z-10 max-w-[1400px] mx-auto px-9">

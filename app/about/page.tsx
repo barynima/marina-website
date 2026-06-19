@@ -3,6 +3,8 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { getAbout, getSiteSettings, getAssetUrl } from '@/lib/directus'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'Обо мне — Марина Барынина, эксперт по рекламе WB',
   description: 'Эксперт по внутренней рекламе Wildberries. 200+ учеников, 10 лет в e-com.',
@@ -19,9 +21,9 @@ export default async function AboutPage() {
       <section className="relative bg-ink text-paper overflow-hidden min-h-[60vh] flex items-end">
         {photoUrl && (
           <div className="absolute inset-0">
-            <Image src={photoUrl} alt="Марина Барынина" fill className="object-cover object-top opacity-40" priority />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+            <Image src={photoUrl} alt="Марина Барынина" fill className="object-cover object-top opacity-65" priority />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/40 to-ink/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
         )}
         {!photoUrl && (

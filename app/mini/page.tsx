@@ -4,6 +4,8 @@ import { getSiteSettings, getReviews, getFaq, getMiniContent, getAssetUrl } from
 import { ReviewCard } from '@/components/ReviewCard'
 import { FaqAccordion } from '@/components/FaqAccordion'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'База рекламы — мини-курс для новичков WB',
   description: 'Мини-курс по рекламе Wildberries для новичков. Разберитесь в основах и запустите первую кампанию без слива бюджета',
@@ -27,8 +29,8 @@ export default async function MiniCoursePage() {
       <section className="relative bg-ink text-paper pt-32 pb-20 overflow-hidden">
         {heroPhotoUrl && (
           <div className="absolute inset-0">
-            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-30" priority />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/40" />
+            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-55" priority />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20" />
           </div>
         )}
         <div className="relative z-10 max-w-[1400px] mx-auto px-9">
