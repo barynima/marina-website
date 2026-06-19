@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
-import { getMentoringContent } from '@/lib/directus'
+import { getMentoringContent, getReviews } from '@/lib/directus'
 import { ContactForm } from '@/components/ContactForm'
+import { ReviewCard } from '@/components/ReviewCard'
 
 export const metadata: Metadata = {
   title: 'Стратегическое управление рекламой WB',
@@ -8,7 +9,8 @@ export const metadata: Metadata = {
 }
 
 export default async function MentoringPage() {
-  const content = await getMentoringContent()
+  const [content, reviews] = await Promise.all([getMentoringContent(), getReviews()])
+  const mentoringReviews = reviews.filter(r => r.product === 'Курирование отдела')
 
   return (
     <div className="min-h-screen bg-paper">
@@ -97,6 +99,21 @@ export default async function MentoringPage() {
             <div>
               <p className="font-heading text-xl uppercase text-ink">Ограниченное количество мест</p>
               <p className="font-body text-sm text-ink/60 mt-1 whitespace-pre-line">{content.spots_note}</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Отзывы ── */}
+      {mentoringReviews.length > 0 && (
+        <section className="py-24 md:py-36">
+          <div className="max-w-[1400px] mx-auto px-9">
+            <p className="section-tag mb-6">Отзывы</p>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] uppercase text-ink leading-none mb-16">
+              Говорят клиенты
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {mentoringReviews.map((r, i) => <ReviewCard key={r.id} review={r} index={i} />)}
             </div>
           </div>
         </section>
