@@ -34,6 +34,7 @@ export interface FaqItem {
 
 export interface About {
   headline: string
+  photo: string | null
   bio: { paragraph: string }[]
   approach: { item: string }[]
   credentials: { item: string }[]
@@ -81,6 +82,7 @@ export const getHomeContent = () =>
 export interface CourseContent {
   hero_title: string
   hero_subtitle: string
+  hero_photo: string | null
   description: string
   for_whom: { text: string }[]
   results: { text: string }[]
@@ -90,6 +92,7 @@ export interface CourseContent {
 
 export interface MiniContent {
   hero_title: string
+  hero_photo: string | null
   description: string
   for_whom: { text: string }[]
   skills: { text: string }[]
@@ -98,6 +101,7 @@ export interface MiniContent {
 
 export interface MentoringContent {
   hero_title: string
+  hero_photo: string | null
   description: string
   pains: { text: string }[]
   process: { title: string; desc: string }[]

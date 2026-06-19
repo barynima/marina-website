@@ -1,6 +1,7 @@
+import Image from 'next/image'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { getAbout, getSiteSettings } from '@/lib/directus'
+import { getAbout, getSiteSettings, getAssetUrl } from '@/lib/directus'
 
 export const metadata: Metadata = {
   title: 'Обо мне — Марина Барынина, эксперт по рекламе WB',
@@ -9,13 +10,24 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()])
+  const photoUrl = getAssetUrl(about.photo)
 
   return (
     <div className="min-h-screen bg-paper">
 
       {/* ── Hero ── */}
-      <section className="bg-ink text-paper pt-32 pb-20">
-        <div className="max-w-[1400px] mx-auto px-9">
+      <section className="relative bg-ink text-paper overflow-hidden min-h-[60vh] flex items-end">
+        {photoUrl && (
+          <div className="absolute inset-0">
+            <Image src={photoUrl} alt="Марина Барынина" fill className="object-cover object-top opacity-40" priority />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+          </div>
+        )}
+        {!photoUrl && (
+          <div className="absolute inset-0 bg-gradient-to-br from-ink via-ink/95 to-accent/20" />
+        )}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-9 pt-32 pb-20 w-full">
           <p className="section-tag text-paper/40 mb-6">Обо мне</p>
           <h1 className="font-heading text-[clamp(3.5rem,10vw,9rem)] uppercase text-paper leading-none mb-10">
             Марина<br />Барынина

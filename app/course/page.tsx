@@ -1,5 +1,6 @@
+import Image from 'next/image'
 import { Metadata } from 'next'
-import { getSiteSettings, getReviews, getFaq, getCourseContent } from '@/lib/directus'
+import { getSiteSettings, getReviews, getFaq, getCourseContent, getAssetUrl } from '@/lib/directus'
 import { WaitlistForm } from '@/components/WaitlistForm'
 import { ReviewCard } from '@/components/ReviewCard'
 import { FaqAccordion } from '@/components/FaqAccordion'
@@ -19,13 +20,20 @@ export default async function CoursePage() {
 
   const isOpen = settings.course_mode === 'open'
   const courseReviews = reviews.filter(r => r.product !== 'Курирование отдела')
+  const heroPhotoUrl = getAssetUrl(content.hero_photo)
 
   return (
     <div className="min-h-screen bg-paper">
 
       {/* ── Hero ── */}
-      <section className="bg-ink text-paper pt-32 pb-20">
-        <div className="max-w-[1400px] mx-auto px-9">
+      <section className="relative bg-ink text-paper pt-32 pb-20 overflow-hidden">
+        {heroPhotoUrl && (
+          <div className="absolute inset-0">
+            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-30" priority />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/40" />
+          </div>
+        )}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-9">
           <p className="section-tag text-paper/40 mb-6">Флагманский курс</p>
           <h1 className="font-heading uppercase leading-none mb-4">
             <span className="text-[clamp(3rem,9vw,8rem)] text-paper">

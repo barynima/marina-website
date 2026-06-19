@@ -1,5 +1,6 @@
+import Image from 'next/image'
 import { Metadata } from 'next'
-import { getMentoringContent, getReviews } from '@/lib/directus'
+import { getMentoringContent, getReviews, getAssetUrl } from '@/lib/directus'
 import { ContactForm } from '@/components/ContactForm'
 import { ReviewCard } from '@/components/ReviewCard'
 
@@ -11,13 +12,20 @@ export const metadata: Metadata = {
 export default async function MentoringPage() {
   const [content, reviews] = await Promise.all([getMentoringContent(), getReviews()])
   const mentoringReviews = reviews.filter(r => r.product === 'Курирование отдела')
+  const heroPhotoUrl = getAssetUrl(content.hero_photo)
 
   return (
     <div className="min-h-screen bg-paper">
 
       {/* ── Hero ── */}
-      <section className="bg-ink text-paper pt-32 pb-20">
-        <div className="max-w-[1400px] mx-auto px-9">
+      <section className="relative bg-ink text-paper pt-32 pb-20 overflow-hidden">
+        {heroPhotoUrl && (
+          <div className="absolute inset-0">
+            <Image src={heroPhotoUrl} alt="" fill className="object-cover object-center opacity-30" priority />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/40" />
+          </div>
+        )}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-9">
           <p className="section-tag text-paper/40 mb-6">Для владельцев бизнеса</p>
           <h1 className="font-heading text-[clamp(3rem,8vw,8rem)] uppercase text-paper leading-none mb-10">
             {content.hero_title}
